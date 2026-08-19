@@ -1,11 +1,12 @@
 import Link from "next/link";
+import "../../globals.css";
+import BottomBar from "@/app/components/BottomBar";
 
 const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
   return (
     <html>
-
-    <body className="flex flex-col h-full">
-      <header className="min-h-16 flex items-center gap-4 px-4 bg-primary text-white">
+    <body className="flex flex-col h-screen">
+      <header className="border-1 min-h-16 flex items-center gap-4 px-4 bg-primary text-white">
         <Link
           href="/"
           className="flex items-center gap-2 hover:opacity-80 transition"
@@ -27,7 +28,8 @@ const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
           <span className="font-semibold">Accounts</span>
         </Link>
       </header>
-      <div className="flex-1 overflow-y-auto p-6">{children}</div>
+      {children}
+        <BottomBar />
     </body>
     </html>
   );

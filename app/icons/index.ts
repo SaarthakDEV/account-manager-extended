@@ -1,0 +1,1 @@
+// export { ReactComponent as Checked } from "@/public/checked.svg";

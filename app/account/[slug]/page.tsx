@@ -11,7 +11,7 @@ export const generateMetadata = async ({
   };
 };
 
-const Page = async ({ params }: PageProps<"/account/[slug]">) => {
+const Page = async ({ params, searchParams }: PageProps<"/account/[slug]">) => {
   const { slug } = await params;
   return <AccountPage id={slug} />;
 };

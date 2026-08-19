@@ -13,10 +13,10 @@ const Row = ({ rowData }: { rowData: RowData }) => {
   return (
     <div
       onClick={handleRowClick}
-      className="border-1 bg-primary rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
+      className="border-1 bg-white rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
     >
       <div className="flex-1 flex items-center justify-between w-full">
-        <div className="text-white text-2xl overflow-hidden text-ellipsis flex-1">
+        <div className="text-black font-bold text-2xl overflow-hidden text-ellipsis flex-1">
           {name}
         </div>
         <div className="px-2 py-1 flex justify-center items-center rounded-md bg-white ">

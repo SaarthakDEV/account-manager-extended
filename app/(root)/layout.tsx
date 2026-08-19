@@ -36,7 +36,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </nav>
           <section className="w-full flex overflow-hidden flex-1">
             <nav className="w-64 h-full overflow-y-auto overflow-x-hidden hidden md:block shadow-2xl"></nav>
-            <div className="flex-3 p-6 overflow-y-auto overflow-x-hidden flex flex-col gap-6">{children}</div>
+            <div className="flex-3 overflow-y-auto overflow-x-hidden">
+              <div className="bg-[#ebebeb] flex flex-col gap-6 p-6">{children}</div>
+            </div>
           </section>
         </AccountDataProvider>
       </body>
