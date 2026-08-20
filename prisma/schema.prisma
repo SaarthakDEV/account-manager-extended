@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model accounts {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id      String         @db.Uuid
+  name         String         @db.VarChar(100)
+  currency     String         @default("INR") @db.Char(3)
+  credit       Decimal        @default(0) @db.Decimal(19, 4)
+  debit        Decimal        @default(0) @db.Decimal(19, 4)
+  balance      Decimal        @default(0) @db.Decimal(19, 4)
+  created_at   DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime       @default(now()) @db.Timestamptz(6)
+  users        users          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_accounts_user")
+  transactions transactions[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model transactions {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  account_id     String           @db.Uuid
+  transaction_at DateTime         @db.Timestamptz(6)
+  type           transaction_type
+  amount         Decimal          @db.Decimal(19, 4)
+  balance_after  Decimal          @db.Decimal(19, 4)
+  particular     String?
+  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+  accounts       accounts         @relation(fields: [account_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_transactions_account")
+}
+
+model users {
+  id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String     @db.VarChar(100)
+  email         String?    @unique @db.VarChar(255)
+  username      String?    @unique @db.VarChar(100)
+  password_hash String?    @db.VarChar(255)
+  created_at    DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime   @default(now()) @db.Timestamptz(6)
+  accounts      accounts[]
+}
+
+enum statement_period_type {
+  MONTH
+}
+
+enum transaction_type {
+  CREDIT
+  DEBIT
+}

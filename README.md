@@ -178,6 +178,36 @@ CREATE INDEX idx_statement_exports_account_id
 
 
 ## Docker commands
+- Open postgres inside terminal
+    >
+        psql -U <postgres-sql
+        
 - Lists all tables in database
     >
         \dt
+
+- List databases
+    > 
+        \l
+    
+- Check connection info 
+    >
+        \conninfo
+
+- Change database
+    >
+        \c <database-name>
+
+## Prisma Commands
+- Initialization
+    >
+        npm install prisma --save-dev
+        npx prisma init
+
+- Check for existing database
+    >
+        npx prisma db pull
+
+- Generate Prisma Client
+    >
+        npx prisma generate

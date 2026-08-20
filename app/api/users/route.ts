@@ -1,6 +1,6 @@
-
+import prisma from "@/app/lib/prisma";
 
 export async function GET() {
-  const users = "WEBPACK_MODE_TEST_$(date +%s) fgdfgdfgdfgdfg";
-  return Response.json(users);
+  const users = await prisma.users.findMany();
+  return Response.json({users: "hello"});
 }
