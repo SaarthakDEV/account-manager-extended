@@ -1,3 +1,6 @@
-export async function GET(request: Request) {
-    return Response.json({ "message":"hello world"});
+
+
+export async function GET() {
+  const users = "WEBPACK_MODE_TEST_$(date +%s) fgdfgdfgdfgdfg";
+  return Response.json(users);
 }
