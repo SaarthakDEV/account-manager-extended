@@ -12,7 +12,7 @@ services:
     environment:
       NODE_ENV: development
       DATABASE_URL: postgresql://postgres:postgres@postgres-db:5432/postgres?schema=public
-    command: ./node_modules/.bin/next dev -p 5800
+    command: ./node_modules/.bin/next dev -p 5800 --webpack
 
   db:
     image: postgres:17

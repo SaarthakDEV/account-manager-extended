@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface RowData {
   id: string | number;
   name: string;
@@ -13,3 +15,9 @@ export const TRANSACTION = {
 } as const;
 
 export type TransactionType = typeof TRANSACTION[keyof typeof TRANSACTION];
+
+export type DialogCTA = {
+  label: ReactNode,
+  color: string,
+  icon?: SVGElement
+}
