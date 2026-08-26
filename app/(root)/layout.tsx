@@ -4,6 +4,8 @@ import MobileSidebar from "../components/MobileSidebar";
 import SearchBar from "../components/SearchBar";
 import { AccountDataProvider } from "../context/AccountDataContext";
 import "../globals.css";
+import { Plus } from "../icons";
+import AddButton from "./AddButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,11 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="h-[100vh] flex flex-col overflow-hidden">
         <AccountDataProvider>
-          <nav className="min-h-16 flex items-center px-4 bg-primary">
+          <nav className="min-h-16 text-white flex items-center px-4 bg-primary">
             <MobileSidebar />
             <span className="font-semibold">Accounts</span>
             <SearchBar />
-            <span />
+            <AddButton />
           </nav>
           <section className="w-full flex overflow-hidden flex-1">
             <nav className="w-64 h-full overflow-y-auto overflow-x-hidden hidden md:block shadow-2xl"></nav>

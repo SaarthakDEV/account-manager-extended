@@ -6,6 +6,7 @@ import Dialog from "@/app/components/Dialog";
 import AddAccountEntry from "@/app/components/AddAccountEntry";
 import { useRef, useState } from "react";
 import { Plus } from "@/app/icons";
+import { CTAs } from "@/app/components/Dialog/Cta";
 
 const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
   const [openAddAccountEntryDialog, setOpenAddAccountEntryDialog] =
@@ -47,10 +48,22 @@ const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
         {children}
         <BottomBar />
         <Dialog
+          heading="Add Account Entry"
+          title="Add a credit or debit transaction to your account."
           needFooter
           onConfirm={onClickDialogConfirm}
           onClose={() => setOpenAddAccountEntryDialog(false)}
           open={openAddAccountEntryDialog}
+          ctaConfig={{
+            [CTAs.CONFIRM]: {
+              title: "Confirm",
+              onClick: () => {},
+            },
+            [CTAs.CANCEL]: {
+              title: "Cancel",
+              onClick: () => {},
+            }}
+          }
         >
           <AddAccountEntry addTransactionFormRef={addTransactionFormRef} />
         </Dialog>

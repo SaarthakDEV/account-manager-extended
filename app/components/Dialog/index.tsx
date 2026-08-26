@@ -1,39 +1,51 @@
+import { CTAButton } from "@/app/types";
 import type { FC, ReactNode } from "react";
+import CTA from "./Cta";
+import { Cross } from "@/app/icons";
 
 interface DialogProps {
+  heading: string;
+  title: string;
   open: boolean;
   needFooter?: boolean;
   onClose?: () => void;
   onConfirm?: () => void;
   children: ReactNode;
+  ctaConfig?: CTAButton;
 }
 
 const Dialog: FC<DialogProps> = ({
+  heading,
+  title,
   open,
   needFooter = false,
+  ctaConfig = {},
   onClose = () => {},
-  onConfirm = () => {},
   children,
 }) => {
   if (!open) return <></>;
   return (
     <div className="h-screen w-screen absolute flex justify-center items-center top-0 left-0">
       <div className="static min-h-[40vh] w-[50vw] rounded-xl shadow-2xl flex flex-col bg-gray-50">
+        <div className="p-4">
+          <div className="flex">
+            <h2 className="text-xl flex-1 font-semibold text-gray-900">
+              {heading}
+            </h2>
+            <Cross
+              SVG={{
+                className: "cursor-pointer hover:text-red-500",
+                onClick: onClose,
+              }}
+            />
+          </div>
+          <p className="mt-1 text-sm text-gray-500">{title}</p>
+        </div>
+
         <div className="flex-1 p-4">{children}</div>
         {needFooter && (
           <footer className="h-16 flex justify-center items-center gap-10 bg-gray-100 rounded-b-xl">
-            <button
-              onClick={onConfirm}
-              className="py-1.5 px-6 cursor-pointer bg-green-500 rounded-md text-white shadow-lg"
-            >
-              Confirm
-            </button>
-            <button
-              onClick={onClose}
-              className="py-1.5 px-6 cursor-pointer bg-red-500 rounded-md text-white shadow-lg"
-            >
-              Cancel
-            </button>
+            <CTA {...ctaConfig} />
           </footer>
         )}
       </div>

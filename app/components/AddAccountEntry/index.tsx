@@ -37,14 +37,6 @@ const AddAccountEntry = ({
       onSubmit={handleSubmit(onSubmit)}
       className="w-full max-w-lg"
     >
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900">
-          Add Account Entry
-        </h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Add a credit or debit transaction to your account.
-        </p>
-      </div>
 
       {/* Transaction Type */}
       <div className="mb-5">
@@ -173,15 +165,6 @@ const AddAccountEntry = ({
           </p>
         )}
       </div>
-
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {isSubmitting ? "Adding..." : "Add Entry"}
-      </button>
     </form>
   );
 };
