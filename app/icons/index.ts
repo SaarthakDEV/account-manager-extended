@@ -1,1 +1,2 @@
-// export { ReactComponent as Checked } from "@/public/checked.svg";
+export { default as Plus } from "@/app/icons/Plus"
+export { default as Checked } from "@/app/icons/Checked"

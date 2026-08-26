@@ -5,19 +5,21 @@ import BottomBar from "@/app/components/BottomBar";
 import Dialog from "@/app/components/Dialog";
 import AddAccountEntry from "@/app/components/AddAccountEntry";
 import { useRef, useState } from "react";
+import { Plus } from "@/app/icons";
 
 const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
-  const [openAddAccountEntryDialog, setOpenAddAccountEntryDialog] = useState<boolean>(false);
+  const [openAddAccountEntryDialog, setOpenAddAccountEntryDialog] =
+    useState<boolean>(false);
   const addTransactionFormRef = useRef<HTMLFormElement | null>(null);
 
   const onClickDialogConfirm = () => {
     addTransactionFormRef?.current?.requestSubmit();
-  }
+  };
 
   return (
     <html>
       <body className="flex flex-col h-screen">
-        <header className="border-1 min-h-16 flex items-center gap-4 px-4 bg-primary text-white">
+        <header className="border-1 min-h-16 flex justify-between items-center gap-4 px-4 bg-primary text-white">
           <Link
             href="/"
             className="flex items-center gap-2 hover:opacity-80 transition"
@@ -38,12 +40,19 @@ const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
             </svg>
             <span className="font-semibold">Accounts</span>
           </Link>
-          <div onClick={() => setOpenAddAccountEntryDialog(prev => !prev)}>Add</div>
+          <div className="border-1 text-sm flex gap-1 border-white rounded-sm whitespace-nowrap font-semibold hover:opacity-80 p-2 cursor-pointer" onClick={() => setOpenAddAccountEntryDialog((prev) => !prev)}>
+            Add new entry <Plus svg={{ className: "cursor-pointer"}}/>
+          </div>
         </header>
         {children}
         <BottomBar />
-        <Dialog needFooter onConfirm={onClickDialogConfirm} onClose={() => setOpenAddAccountEntryDialog(false)} open={openAddAccountEntryDialog}>
-          <AddAccountEntry addTransactionFormRef={addTransactionFormRef}/>
+        <Dialog
+          needFooter
+          onConfirm={onClickDialogConfirm}
+          onClose={() => setOpenAddAccountEntryDialog(false)}
+          open={openAddAccountEntryDialog}
+        >
+          <AddAccountEntry addTransactionFormRef={addTransactionFormRef} />
         </Dialog>
       </body>
     </html>
