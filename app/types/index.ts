@@ -33,3 +33,8 @@ export type CTAButton = {
     onClick: MouseEventHandler;
   };
 };
+
+export type AccountPayload = {
+  user_id: string,
+  name: string
+}
