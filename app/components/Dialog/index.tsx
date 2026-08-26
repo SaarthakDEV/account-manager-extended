@@ -5,7 +5,7 @@ import { Cross } from "@/app/icons";
 
 interface DialogProps {
   heading: string;
-  title: string;
+  title?: string;
   open: boolean;
   needFooter?: boolean;
   onClose?: () => void;
@@ -26,18 +26,19 @@ const Dialog: FC<DialogProps> = ({
   if (!open) return <></>;
   return (
     <div className="h-screen w-screen absolute flex justify-center items-center top-0 left-0">
-      <div className="static min-h-[40vh] w-[50vw] rounded-xl shadow-2xl flex flex-col bg-gray-50">
+      <div className="static w-[50vw] rounded-xl shadow-2xl flex flex-col bg-gray-50">
         <div className="p-4">
           <div className="flex">
             <h2 className="text-xl flex-1 font-semibold text-gray-900">
               {heading}
             </h2>
-            <Cross
+            {
+              !needFooter && <Cross
               SVG={{
-                className: "cursor-pointer hover:text-red-500",
+                className: "cursor-pointer text-red-500 hover:text-red-400 transition",
                 onClick: onClose,
               }}
-            />
+            />}
           </div>
           <p className="mt-1 text-sm text-gray-500">{title}</p>
         </div>
