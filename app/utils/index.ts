@@ -1,3 +1,4 @@
+import moment from "moment";
 import { TRANSACTION, TransactionType } from "../types";
 
 const cardBgClass = {
@@ -10,3 +11,5 @@ const cardBgClass = {
 // type cardBgClassType = (typeof cardBgClass)[keyof typeof cardBgClass];
 
 export const getCardClass = (type: TransactionType):string => cardBgClass[type];
+
+export const getDateToFormat = (providedDate: Date | undefined): string => providedDate ? moment(providedDate).format("DD-MM-YYYY") : "DD-MM-YYYY";
