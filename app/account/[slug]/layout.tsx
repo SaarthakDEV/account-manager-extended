@@ -3,7 +3,7 @@ import Link from "next/link";
 import "../../globals.css";
 import BottomBar from "@/app/components/BottomBar";
 import Dialog from "@/app/components/hoc/Dialog";
-import AddAccountEntry from "@/app/components/AddAccountEntry";
+import AddNewAccountDialogForm from "@/app/components/AddNewAccountDialogForm";
 import { useRef, useState } from "react";
 import { Plus } from "@/app/icons";
 import { CTAs } from "@/app/components/hoc/Dialog/Cta";
@@ -65,7 +65,7 @@ const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
             }}
           }
         >
-          <AddAccountEntry addTransactionFormRef={addTransactionFormRef} />
+          <AddNewAccountDialogForm addTransactionFormRef={addTransactionFormRef} />
         </Dialog>
       </body>
     </html>
