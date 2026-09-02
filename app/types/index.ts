@@ -1,12 +1,12 @@
 import { MouseEventHandler, ReactNode } from "react";
-import { CTAs } from "../components/Dialog/Cta";
+import { CTAs } from "../components/hoc/Dialog/Cta";
 
-export interface RowData {
-  id: string | number | undefined;
-  name: string;
-  transaction: {
+export interface AccountOverview {
+  id: string | number;
+  account_name: string;
+  record: {
     [key in TransactionType]: number;
-  };
+  }
 }
 
 export const TRANSACTION = {
@@ -14,6 +14,16 @@ export const TRANSACTION = {
   DEBIT: "debit",
   BALANCE: "balance",
 } as const;
+
+export type TransactionItem = {
+  amount: string;
+  account_id: string;
+  transaction_id: string;
+  description: string;
+  type: TransactionType;
+  transaction_at: Date;
+  balance?: string;
+}
 
 export type TransactionType = (typeof TRANSACTION)[keyof typeof TRANSACTION];
 
@@ -35,10 +45,9 @@ export type CTAButton = {
 };
 
 export type AccountPayload = {
-  user_id?: string,
   name: string,
   credit?: number,
   debit?: number,
   balance?: number,
-  id?: string | number | undefined,
+  user_id?: string,
 }

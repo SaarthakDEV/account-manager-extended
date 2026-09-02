@@ -5,8 +5,8 @@ const formEntrySchema = z.object({
   type: z
     .literal(["credit", "debit"]),
   amount: z.number().min(0,"Should be greater than 0"),
-  particular: z.string().nonempty("Cannot be empty"),
-  date: z.custom<Moment>(
+  description: z.string().nonempty("Cannot be empty"),
+  transaction_date: z.custom<Moment>(
     (value) => moment.isMoment(value),
     "Invalid date"
   ),

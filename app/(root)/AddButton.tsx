@@ -1,19 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import { Plus } from "../icons";
-import Dialog from "../components/Dialog";
+import Dialog from "../components/hoc/Dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
 import formSchema, { SchemaType } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CTAs } from "../components/Dialog/Cta";
+import { CTAs } from "../components/hoc/Dialog/Cta";
+import { useAccountData } from "../context/AccountDataContext";
 
 const AddButton = () => {
-  const [openAddAccountDialog, setOpenAddAccountDialog] =
+  const [openAddAccountDialog, setOpenAddNewAccountDialog] =
     useState<boolean>(false);
+  const { accounts } = useAccountData();
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<SchemaType>({
     resolver: zodResolver(formSchema),
@@ -23,14 +26,28 @@ const AddButton = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = ({ accountName }) => {
-    
-  }
+    const isAccountAlreadyExist = accounts.find(
+      (account) => account.name.toLowerCase() === accountName.toLowerCase(),
+    );
+    if (isAccountAlreadyExist) {
+      setError(
+        "accountName",
+        {
+          type: "manual",
+          message: "This name is already registered.",
+        },
+        {
+          shouldFocus: true,
+        },
+      );
+    }
+  };
 
   return (
     <>
       <div
         className="border-1 text-sm flex gap-1 border-white rounded-sm whitespace-nowrap font-semibold hover:opacity-80 p-2 cursor-pointer"
-        onClick={() => setOpenAddAccountDialog((prev) => !prev)}
+        onClick={() => setOpenAddNewAccountDialog((prev) => !prev)}
       >
         Add new account <Plus svg={{ className: "cursor-pointer" }} />
       </div>
@@ -46,7 +63,7 @@ const AddButton = () => {
           },
           [CTAs.CANCEL]: {
             title: "Cancel",
-            onClick: () => setOpenAddAccountDialog(false),
+            onClick: () => setOpenAddNewAccountDialog(false),
           },
         }}
       >
@@ -68,6 +85,7 @@ const AddButton = () => {
                 ? "border-red-400 focus:border-red-500 focus:ring-red-100"
                 : "border-gray-300 focus:border-blue-500 focus:ring-blue-100"
             }`}
+            disabled={isSubmitting}
           />
 
           {errors.accountName && (

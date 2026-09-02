@@ -7,7 +7,7 @@ import DatePicker from "../hoc/DatePicker";
 import moment from "moment";
 import { getDateToFormat } from "@/app/utils";
 
-const AddAccountEntry = ({
+const AddNewAccountDialogForm = ({
   addTransactionFormRef: formRef,
 }: {
   addTransactionFormRef: { current: HTMLFormElement | null };
@@ -22,8 +22,8 @@ const AddAccountEntry = ({
     defaultValues: {
       type: "credit",
       amount: 1000,
-      particular: "",
-      date: getDateToFormat(new Date()),
+      description: "",
+      transaction_date: getDateToFormat(new Date()),
     },
   });
 
@@ -87,7 +87,7 @@ const AddAccountEntry = ({
           </label>
 
           <Controller
-            name="date"
+            name="transaction_date"
             control={control}
             render={({ field }) => (
               <DatePicker
@@ -98,8 +98,8 @@ const AddAccountEntry = ({
             )}
           />
 
-          {errors.date && (
-            <p className="mt-1.5 text-sm text-red-600">{errors.date.message}</p>
+          {errors.transaction_date && (
+            <p className="mt-1.5 text-sm text-red-600">{errors.transaction_date.message}</p>
           )}
         </div>
 
@@ -150,18 +150,18 @@ const AddAccountEntry = ({
         <input
           id="description"
           type="text"
-          {...register("particular")}
+          {...register("description")}
           placeholder="Enter description"
           className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:ring-2 ${
-            errors.particular
+            errors.description
               ? "border-red-400 focus:border-red-500 focus:ring-red-100"
               : "border-gray-300 focus:border-blue-500 focus:ring-blue-100"
           }`}
         />
 
-        {errors.particular && (
+        {errors.description && (
           <p className="mt-1.5 text-sm text-red-600">
-            {errors.particular.message}
+            {errors.description.message}
           </p>
         )}
       </div>
@@ -169,4 +169,4 @@ const AddAccountEntry = ({
   );
 };
 
-export default AddAccountEntry;
+export default AddNewAccountDialogForm;
