@@ -1,10 +1,10 @@
 "use client";
-import { createContext, useContext, useMemo, useState } from "react";
-import type { RowData } from "../types";
-import { mock } from "../mock";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import type { AccountOverview, AccountPayload } from "../types";
+import api, { METHODS } from "../utils/apiClient";
 
 interface AccountDataContextValue {
-  data: RowData[];
+  accounts: AccountPayload[] & AccountOverview[];
   searchText: string;
   setSearchText: (val: string) => void;
 }
@@ -19,18 +19,20 @@ export const AccountDataProvider = ({
   children: React.ReactNode;
 }) => {
   const [searchText, setSearchText] = useState<string>("");
-
-  const data = useMemo(() => {
-    if (!searchText.trim()) return [...mock];
-    return mock.filter((item: RowData) =>
-      item?.name?.toLowerCase().includes(searchText.toLowerCase())
-    );
-  }, [searchText]);
+  const [accounts, setAccounts] = useState<AccountPayload[] & AccountOverview[]>([]);
 
   const value = useMemo(
-    () => ({ data, searchText, setSearchText }),
-    [data, searchText]
+    () => ({ accounts, searchText, setSearchText }),
+    [accounts, searchText]
   );
+
+  useEffect(() => {
+    api(METHODS.GET, `accounts/${process.env.NEXT_PUBLIC_USER_ID}`).then(async response => {
+      const parsedResponse = await response.json();
+      if(parsedResponse.message !== "ok") throw new Error("Couldn't get account details of user")
+      setAccounts(parsedResponse.accounts);
+    })
+  }, [])
 
   return (
     <AccountDataContext.Provider value={value}>

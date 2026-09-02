@@ -4,7 +4,6 @@ import MobileSidebar from "../components/MobileSidebar";
 import SearchBar from "../components/SearchBar";
 import { AccountDataProvider } from "../context/AccountDataContext";
 import "../globals.css";
-import { Plus } from "../icons";
 import AddButton from "./AddButton";
 
 const geistSans = Geist({

@@ -2,7 +2,7 @@ import { MouseEventHandler, ReactNode } from "react";
 import { CTAs } from "../components/Dialog/Cta";
 
 export interface RowData {
-  id: string | number;
+  id: string | number | undefined;
   name: string;
   transaction: {
     [key in TransactionType]: number;
@@ -35,6 +35,10 @@ export type CTAButton = {
 };
 
 export type AccountPayload = {
-  user_id: string,
-  name: string
+  user_id?: string,
+  name: string,
+  credit?: number,
+  debit?: number,
+  balance?: number,
+  id?: string | number | undefined,
 }

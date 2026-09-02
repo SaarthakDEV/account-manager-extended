@@ -1,33 +1,35 @@
-const account = [
+import { RowData, TRANSACTION } from "../types";
+
+const account: RowData[] = [
   {
     id: 1,
-    title: "Marjie",
-    amount: "Purton",
-    type: "convallis",
+    description: "Marjie",
+    amount: 12,
+    type: TRANSACTION.CREDIT,
   },
   {
     id: 2,
-    title: "Sloane",
-    amount: "McVicar",
-    type: "dolor",
+    description: "Sloane",
+    amount: 23,
+    type: TRANSACTION.DEBIT,
   },
   {
     id: 3,
-    title: "Tab",
-    amount: "Lifton",
-    type: "justo",
+    description: "Tab",
+    amount: 435,
+    type: TRANSACTION.CREDIT,
   },
   {
     id: 4,
-    title: "Charlton",
-    amount: "Priddis",
-    type: "sapien",
+    description: "Charlton",
+    amount: 43,
+    type: TRANSACTION.DEBIT,
   },
   {
     id: 5,
-    title: "Lisha",
-    amount: "Gumery",
-    type: "proin",
+    description: "Lisha",
+    amount: 11,
+    type: TRANSACTION.CREDIT,
   },
 ];
 export default account;

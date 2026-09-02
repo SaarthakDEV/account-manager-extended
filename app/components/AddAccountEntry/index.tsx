@@ -3,7 +3,7 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import formEntrySchema, { SchemaType } from "./schema";
-import CustomDatePicker from "../DatePicker";
+import DatePicker from "../hoc/DatePicker";
 import moment from "moment";
 import { getDateToFormat } from "@/app/utils";
 
@@ -90,7 +90,7 @@ const AddAccountEntry = ({
             name="date"
             control={control}
             render={({ field }) => (
-              <CustomDatePicker
+              <DatePicker
                 format={getDateToFormat(undefined)}
                 value={moment(field.value)}
                 onChange={field.onChange}

@@ -1,10 +1,11 @@
 "use client";
 
-import Row from "../components/Row";
+import AccountOverviewItem from "../components/AccountOverviewItem";
 import { useAccountData } from "../context/AccountDataContext";
-import { RowData } from "../types";
+import { AccountOverview } from "../types";
 
 export default function Home() {
-  const { data: accounts } = useAccountData();
-  return accounts.map((data: RowData) => <Row rowData={data} key={data.id}/>);
+  const { accounts } = useAccountData();
+
+  return accounts.map((data: AccountOverview) => <AccountOverviewItem rowData={data} key={data.id}/>);
 }

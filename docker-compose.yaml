@@ -12,6 +12,8 @@ services:
     environment:
       NODE_ENV: development
       DATABASE_URL: postgresql://postgres:postgres@postgres-db:5432/postgres?schema=public
+      BASE_URL: "localhost:5800"
+      USER_ID: "0b14cc2e-5098-4628-a8c5-4fdc91c20823"
     command: ./node_modules/.bin/next dev -p 5800 --webpack
 
   db:

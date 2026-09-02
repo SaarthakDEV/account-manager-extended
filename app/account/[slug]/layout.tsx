@@ -2,11 +2,11 @@
 import Link from "next/link";
 import "../../globals.css";
 import BottomBar from "@/app/components/BottomBar";
-import Dialog from "@/app/components/Dialog";
+import Dialog from "@/app/components/hoc/Dialog";
 import AddAccountEntry from "@/app/components/AddAccountEntry";
 import { useRef, useState } from "react";
 import { Plus } from "@/app/icons";
-import { CTAs } from "@/app/components/Dialog/Cta";
+import { CTAs } from "@/app/components/hoc/Dialog/Cta";
 
 const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
   const [openAddAccountEntryDialog, setOpenAddAccountEntryDialog] =

@@ -2,22 +2,27 @@
 import React from "react";
 import Card from "../Card";
 import { useRouter } from "next/navigation";
-import { RowData, TransactionType } from "@/app/types";
+import { AccountOverview, TransactionType } from "@/app/types";
 
-const Row = ({ rowData }: { rowData: RowData }) => {
-  const {name, id, transaction } = rowData
+const AccountOverviewItem = ({ rowData }: { rowData: AccountOverview }) => {
+  const {account_name, id, record: { credit, debit } } = rowData
+  const transaction = {
+    credit,
+    debit,
+    balance: credit + debit
+  }
   const router = useRouter();
-  const handleRowClick = () => {
+  const handleAccountOverviewItemClick = () => {
     router.push(`/account/${id}?name=${name}`);
   };
   return (
     <div
-      onClick={handleRowClick}
+      onClick={handleAccountOverviewItemClick}
       className="border-1 bg-white rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
     >
       <div className="flex-1 flex items-center justify-between w-full">
         <div className="text-black font-bold text-2xl overflow-hidden text-ellipsis flex-1">
-          {name}
+          {account_name}
         </div>
         <div className="px-2 py-1 flex justify-center items-center rounded-md bg-white ">
           <svg
@@ -38,4 +43,4 @@ const Row = ({ rowData }: { rowData: RowData }) => {
   );
 };
 
-export default Row;
+export default AccountOverviewItem;

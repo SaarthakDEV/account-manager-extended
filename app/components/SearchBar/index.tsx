@@ -1,11 +1,26 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { useAccountData } from "../../context/AccountDataContext";
 
 export default function SearchBar() {
   const { searchText, setSearchText } = useAccountData();
+  const searchRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "/" && (e.metaKey || e.ctrlKey)) {
+      searchRef?.current?.focus();
+    }
+  };
+  document.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    document.removeEventListener("keydown", handleKeyDown);
+  };
+}, []);
   return (
     <input
+      ref={searchRef}
       value={searchText}
       onChange={(e) => setSearchText(e.target.value)}
       type="search"
