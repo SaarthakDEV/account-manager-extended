@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import AccountOverviewItem from './AccountOverviewItem'
 import { useSelector } from 'react-redux'
 import { AccountOverview } from '@/types';
 import { RootState } from '@/redux/store';
 
 const AccountOverviewList = () => {
-    const { accounts } = useSelector((state:RootState) => state.accounts);
+    const { accounts, searchQuery } = useSelector((state:RootState) => state.accounts);
+    const accountsToDisplay = useMemo(() => {
+        if(!searchQuery) return accounts;
+
+        return accounts.filter((account: AccountOverview) => account.account_name.includes(searchQuery))
+    }, [searchQuery, accounts])
     
-  return accounts?.map((account: AccountOverview) => <AccountOverviewItem key={account.id} rowData={account}/>)
+  return accountsToDisplay?.map((account: AccountOverview) => <AccountOverviewItem key={account.id} rowData={account}/>)
 }
 
 export default AccountOverviewList

@@ -6,7 +6,11 @@ import { fetchAccounts } from "@/redux/thunk/accounts";
 const accountSlice = createSlice({
   name: SLICE.ACCOUNTS,
   initialState: accountsInitialState(),
-  reducers: {},
+  reducers: {
+    filterAccounts: (state, action) => {
+      state.searchQuery = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAccounts.pending, (state) => {
       state.loading = true;
@@ -24,4 +28,5 @@ const accountSlice = createSlice({
   },
 });
 
+export const accountActions = accountSlice.actions;
 export default accountSlice.reducer;

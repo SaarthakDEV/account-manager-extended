@@ -1,10 +1,13 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { useAccountData } from "../../context/AccountDataContext";
+import useAppDispatch from "@/hooks/useAppDispatch";
+import ACCOUNTS_ACTIONS from "@/redux/actions/accounts";
+import { accountActions } from "@/redux/reducers/accountsSlice";
+import { useEffect, useRef, useState } from "react";
 
 export default function SearchBar() {
-  const { searchText, setSearchText } = useAccountData();
   const searchRef = useRef<HTMLInputElement>(null);
+  const [searchText, setSearchText] = useState("");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -18,6 +21,10 @@ export default function SearchBar() {
     document.removeEventListener("keydown", handleKeyDown);
   };
 }, []);
+
+useEffect(() => {
+  dispatch(accountActions.filterAccounts(searchText))
+}, [searchText, dispatch])
   return (
     <input
       ref={searchRef}
