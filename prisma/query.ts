@@ -1,6 +1,6 @@
-import { Prisma } from "@/app/generated/prisma/client";
-import prisma from "@/app/lib/prisma";
-import { AccountPayload } from "@/app/types";
+import { Prisma } from "@/generated/prisma/client";
+import prisma from "@/lib/prisma";
+import { AccountPayload } from "@/types";
 
 const getAccountsByUserId = async (userId: string) =>
   await prisma.accounts.findMany({

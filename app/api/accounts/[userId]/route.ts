@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import QUERIES from "@/prisma/query";
-import { TRANSACTION } from "@/app/types";
+import QUERIES from "@/../prisma/query";
+import { TRANSACTION } from "@/types";
 
 type Params = {
   userId: string;

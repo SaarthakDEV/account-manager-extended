@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import formEntrySchema, { SchemaType } from "./schema";
 import DatePicker from "../hoc/DatePicker";
 import moment from "moment";
-import { getDateToFormat } from "@/app/utils";
+import { getDateToFormat } from "@/utils";
 
 const AddNewAccountDialogForm = ({
   addTransactionFormRef: formRef,

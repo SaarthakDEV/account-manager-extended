@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import { AccountDataProvider } from "../context/AccountDataContext";
 import "../globals.css";
 import AddButton from "./AddButton";
+import Sidebar from "../components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <AddButton />
           </nav>
           <section className="w-full flex overflow-hidden flex-1">
-            <nav className="w-64 h-full overflow-y-auto overflow-x-hidden hidden md:block shadow-2xl"></nav>
+            <nav className="w-80 h-full overflow-y-auto overflow-x-hidden hidden md:block shadow-2xl">
+              <Sidebar />
+            </nav>
             <div className="flex-3 overflow-y-auto overflow-x-hidden">
               <div className="bg-[#ebebeb] flex flex-col gap-6 p-6">{children}</div>
             </div>

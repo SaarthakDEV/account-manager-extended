@@ -1,4 +1,4 @@
-import { CTAButton } from "@/app/types";
+import { CTAButton } from "@/types";
 
 export const CTAs = {
   CONFIRM: "confirm",

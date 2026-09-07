@@ -1,6 +1,5 @@
-import { TransactionType } from "@/app/types";
-import { getCardClass } from "@/app/utils";
-import React from "react";
+import { TransactionType } from "@/types";
+import { getCardClass } from "@/utils";
 
 const AccountOverviewItemCard = ({ item, value }: { item: string; value: number }) => {
   return (

@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import "../../globals.css";
-import BottomBar from "@/app/components/BottomBar";
-import Dialog from "@/app/components/hoc/Dialog";
-import AddNewAccountDialogForm from "@/app/components/AddNewAccountDialogForm";
+import BottomBar from "@/components/BottomBar";
+import Dialog from "@/components/hoc/Dialog";
+import AddNewAccountDialogForm from "@/components/AddNewAccountDialogForm";
 import { useRef, useState } from "react";
-import { Plus } from "@/app/icons";
-import { CTAs } from "@/app/components/hoc/Dialog/Cta";
+import { Plus } from "@/icons";
+import { CTAs } from "@/components/hoc/Dialog/Cta";
 
 const Layout = ({ children }: LayoutProps<"/account/[slug]">) => {
   const [openAddAccountEntryDialog, setOpenAddAccountEntryDialog] =

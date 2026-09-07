@@ -1,4 +1,4 @@
-import QUERIES from "@/prisma/query";
+import QUERIES from "@/../prisma/query";
 import { NextRequest } from "next/server";
 
 type Params = {

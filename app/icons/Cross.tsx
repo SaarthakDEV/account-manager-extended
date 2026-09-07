@@ -1,6 +1,6 @@
 import React, { SVGProps } from "react";
 
-const Cross = ({ SVG: svgOverrides }: { SVG: SVGProps<SVGSVGElement>}) => {
+const Cross = ({ SVG: svgOverrides }: { SVG?: SVGProps<SVGSVGElement>}) => {
   return (
     <svg
       width="20"

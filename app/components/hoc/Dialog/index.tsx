@@ -1,10 +1,10 @@
-import { CTAButton } from "@/app/types";
+import { CTAButton } from "@/types";
 import type { FC, ReactNode } from "react";
 import CTA from "./Cta";
-import { Cross } from "@/app/icons";
+import { Cross } from "@/icons";
 
 interface DialogProps {
-  heading: string;
+  heading: string | ReactNode;
   title?: string;
   open: boolean;
   needFooter?: boolean;

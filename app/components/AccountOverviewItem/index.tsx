@@ -1,45 +1,82 @@
 "use client";
-import Card from "./AccountOverviewItemCard";
-import { useRouter } from "next/navigation";
-import { AccountOverview, TransactionType } from "@/app/types";
+import AccountOverviewItemCard from "@/components/AccountOverviewItem/AccountOverviewItemCard";
+
+import { AccountOverview, TransactionType } from "@/types";
+import { Cross, Delete, Edit, Tick } from "@/icons";
+import IconBox, { COLOR } from "@/components/hoc/IconBox";
+import useAccountOverviewItem from "@/hooks/useAccountOverviewItem";
+import useConfirmationModal from "@/hooks/useConfirmationModal";
 
 const AccountOverviewItem = ({ rowData }: { rowData: AccountOverview }) => {
-  const {account_name, id, record: { credit, debit } } = rowData
-  const transaction = {
-    credit,
-    debit,
-    balance: credit + debit
-  }
-  const router = useRouter();
-  const handleAccountOverviewItemClick = () => {
-    router.push(`/account/${id}?name=${account_name}`);
-  };
+  const { confirm, CustomDialog } = useConfirmationModal();
+  const {
+    handleAccountOverviewItemClick,
+    accountNameRef,
+    isEditMode,
+    transaction,
+    accountName,
+    handleActionsClick,
+    handleAccountRenameClick,
+    handleRenameConfirmClick,
+    handleRenameCancelClick,
+    handleAccountNameEdit,
+  } = useAccountOverviewItem(rowData, confirm);
+
   return (
+    <>
     <div
       onClick={handleAccountOverviewItemClick}
-      className="bg-white rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
+      className={`bg-white rounded-md min-h-50 p-4 ${!isEditMode && "cursor-pointer"} flex flex-col gap-4`}
     >
       <div className="flex-1 flex items-center justify-between w-full">
-        <div className="text-black font-bold text-2xl overflow-hidden text-ellipsis flex-1">
-          {account_name}
-        </div>
-        <div className="px-2 py-1 flex justify-center items-center rounded-md bg-white ">
-          {/* Move to icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="red"
-          >
-            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-          </svg>
+        {isEditMode ? (
+          <input
+            ref={accountNameRef}
+            value={accountName}
+            onChange={handleAccountNameEdit}
+            onClick={handleActionsClick}
+            className="focus:outline-primary px-2 py-1 text-2xl font-semibold"
+          />
+        ) : (
+          <div className="text-gray-800 font-semibold px-2 py-1 text-2xl overflow-hidden text-ellipsis flex-1">
+            {accountName}
+          </div>
+        )}
+        <div
+          className="px-2 py-1 flex justify-center gap-2 items-center rounded-md bg-white"
+          onClick={handleActionsClick}
+        >
+          {isEditMode ? (
+            <>
+              <IconBox color={COLOR.GREEN} onClick={handleRenameConfirmClick}>
+                <Tick />
+              </IconBox>
+              <IconBox color={COLOR.RED} onClick={handleRenameCancelClick}>
+                <Cross />
+              </IconBox>
+            </>
+          ) : (
+            <>
+              <IconBox color={COLOR.RED}>
+                <Delete />
+              </IconBox>
+              <IconBox color={COLOR.BLUE} onClick={handleAccountRenameClick}>
+                <Edit />
+              </IconBox>
+            </>
+          )}
         </div>
       </div>
       <div className="flex flex-3 gap-3">
-        {(Object.entries(transaction) as [TransactionType, number][]).map(([key, value], index) => <Card key={index} item={key} value={value}/>)}
+        {(Object.entries(transaction) as [TransactionType, number][]).map(
+          ([key, value], index) => (
+            <AccountOverviewItemCard key={index} item={key} value={value} />
+          ),
+        )}
       </div>
     </div>
+    <CustomDialog />
+    </>
   );
 };
 

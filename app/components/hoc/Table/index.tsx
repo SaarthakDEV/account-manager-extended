@@ -1,4 +1,4 @@
-import { TableConfig, TableOptions } from "@/app/types";
+import { TableConfig, TableOptions } from "@/types";
 import { useCreateAtom } from "@tanstack/react-store";
 import {
   tableFeatures,

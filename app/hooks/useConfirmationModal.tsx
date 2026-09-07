@@ -1,19 +1,20 @@
 import { ReactNode, useRef, useState } from "react";
 import Dialog from "../components/hoc/Dialog";
-import { DialogCTA } from "../types";
+import { CTATypeKey } from "../types";
+import { CTAs } from "@/components/hoc/Dialog/Cta";
 
-type DialogState = {
+export type DialogState = {
   message: string;
-  icon: SVGElement;
-  cta: Array<DialogCTA>;
+  icon?: SVGElement;
+  cta: Array<CTATypeKey>;
   title: ReactNode;
 };
 
-const useDialog = () => {
+const useConfirmationModal = () => {
   const [dialog, setDialog] = useState<DialogState | null>(null);
   const resolveRef = useRef<((result: boolean) => void) | null>(null);
   const confirm = ({ message, icon, cta, title }: DialogState) => {
-    return new Promise((resolve) => {
+    return new Promise<boolean>((resolve) => {
       resolveRef.current = resolve;
 
       setDialog({
@@ -37,6 +38,21 @@ const useDialog = () => {
     setDialog(null);
   };
 
+  const ctaConfig = {
+    ...(dialog?.cta.includes(CTAs.CONFIRM) ? {
+      [CTAs.CONFIRM]: {
+        title: "Confirm",
+        onClick: handleConfirm
+      }
+    } : {}),
+    ...(dialog?.cta.includes(CTAs.CANCEL) ? {
+      [CTAs.CONFIRM]: {
+        title: "Cancel",
+        onClick: handleCancel
+      }
+    } : {})
+  }
+
   const CustomDialog = (): ReactNode => {
     if (!dialog) {
       return null;
@@ -45,9 +61,12 @@ const useDialog = () => {
     return (
       <div className="absolute h-screen w-screen top-0 left-0 flex justify-center items-center">
         <Dialog
+          heading={dialog.title}
           open={true}
-        >
-          <div></div>
+          ctaConfig={ctaConfig}
+          needFooter
+        > 
+          {dialog.message}
         </Dialog>
       </div>
     );
@@ -59,4 +78,4 @@ const useDialog = () => {
   };
 };
 
-export default useDialog;
+export default useConfirmationModal;

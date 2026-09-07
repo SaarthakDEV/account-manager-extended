@@ -1,9 +1,9 @@
 "use client";
 
-import useRemoveQuery from "@/app/hooks/useRemoveQuery";
-import account from "@/app/mock/account";
+import useRemoveQuery from "@/hooks/useRemoveQuery";
+import account from "@/mock/account";
 import Table from "../hoc/Table";
-import { TableConfig, TableOptions, type TransactionItem } from "@/app/types";
+import { TableConfig, TableOptions, type TransactionItem } from "@/types";
 
 const AccountTransactionList = ({ id }: { id: string }) => {
   useRemoveQuery(id);
