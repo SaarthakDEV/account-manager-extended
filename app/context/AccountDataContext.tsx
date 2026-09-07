@@ -30,7 +30,7 @@ export const AccountDataProvider = ({
     api(METHODS.GET, `accounts/${process.env.NEXT_PUBLIC_USER_ID}`).then(async response => {
       const parsedResponse = await response.json();
       if(parsedResponse.message !== "ok") throw new Error("Couldn't get account details of user")
-      setAccounts(parsedResponse.accounts);
+      setAccounts(parsedResponse.accounts.map((account: AccountOverview) => ({...account, account_name: account.name})));
     })
   }, [])
 

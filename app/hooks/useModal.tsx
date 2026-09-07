@@ -1,5 +1,5 @@
 import { ReactNode, useRef, useState } from "react";
-import Dialog from "../components/Dialog";
+import Dialog from "../components/hoc/Dialog";
 import { DialogCTA } from "../types";
 
 type DialogState = {

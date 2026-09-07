@@ -1,9 +1,12 @@
 import { MouseEventHandler, ReactNode } from "react";
 import { CTAs } from "../components/hoc/Dialog/Cta";
+import { Moment } from "moment";
+import { ColumnDef, RowData, TableFeatures } from "@tanstack/react-table";
 
 export interface AccountOverview {
   id: string | number;
   account_name: string;
+  name?: string;
   record: {
     [key in TransactionType]: number;
   }
@@ -21,7 +24,7 @@ export type TransactionItem = {
   transaction_id: string;
   description: string;
   type: TransactionType;
-  transaction_at: Date;
+  transaction_at: Moment;
   balance?: string;
 }
 
@@ -50,4 +53,16 @@ export type AccountPayload = {
   debit?: number,
   balance?: number,
   user_id?: string,
+}
+
+export const TableOptions = {
+  ENABLE_ROW_SELECTION: 'rowSelection',
+} as const;
+
+export type TableOptionsType = (typeof TableOptions)[keyof typeof TableOptions];
+
+export interface TableConfig<TData extends RowData> {
+  rowData: TData[];
+  bodyConfig: ColumnDef<TableFeatures, TData>[];
+  options?: Record<TableOptionsType, string | boolean>
 }

@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import Card from "../Card";
+import Card from "./AccountOverviewItemCard";
 import { useRouter } from "next/navigation";
 import { AccountOverview, TransactionType } from "@/app/types";
 
@@ -13,18 +12,19 @@ const AccountOverviewItem = ({ rowData }: { rowData: AccountOverview }) => {
   }
   const router = useRouter();
   const handleAccountOverviewItemClick = () => {
-    router.push(`/account/${id}?name=${name}`);
+    router.push(`/account/${id}?name=${account_name}`);
   };
   return (
     <div
       onClick={handleAccountOverviewItemClick}
-      className="border-1 bg-white rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
+      className="bg-white rounded-md min-h-50 p-4 cursor-pointer flex flex-col gap-4"
     >
       <div className="flex-1 flex items-center justify-between w-full">
         <div className="text-black font-bold text-2xl overflow-hidden text-ellipsis flex-1">
           {account_name}
         </div>
         <div className="px-2 py-1 flex justify-center items-center rounded-md bg-white ">
+          {/* Move to icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
