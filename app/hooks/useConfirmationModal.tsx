@@ -46,7 +46,7 @@ const useConfirmationModal = () => {
       }
     } : {}),
     ...(dialog?.cta.includes(CTAs.CANCEL) ? {
-      [CTAs.CONFIRM]: {
+      [CTAs.CANCEL]: {
         title: "Cancel",
         onClick: handleCancel
       }

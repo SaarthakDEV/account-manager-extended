@@ -1,5 +1,5 @@
 "use client";
-import AccountOverviewItemCard from "@/components/AccountOverviewItem/AccountOverviewItemCard";
+import AccountOverviewItemCard from "@/components/AccountOverviewList/AccountOverviewItem/AccountOverviewItemCard";
 
 import { AccountOverview, TransactionType } from "@/types";
 import { Cross, Delete, Edit, Tick } from "@/icons";

@@ -43,10 +43,11 @@ const useAccountOverviewItem = (rowData: AccountOverview, confirm: (value: Dialo
   };
 
   const handleRenameConfirmClick: MouseEventHandler<HTMLDivElement> = async () => {
+    if(accountName === account_name) return;
     const result = await confirm({
-        message: "Are you sure?",
-        title: "Confirm?",
-        cta: [CTAs.CONFIRM]
+        message: `Are you want to change account name from ${account_name} to ${accountName}?`,
+        title: `Confirm to proceed`,
+        cta: [CTAs.CONFIRM, CTAs.CANCEL]
     })
   };
 

@@ -19,7 +19,7 @@ const IconBox = ({
   ...restProps
 }: IconBoxProps) => {
   return (
-    <div className={`border-2 border-transparent p-1 rounded-md ${color}`} {...restProps}>
+    <div className={`cursor-pointer border-2 border-transparent p-1 rounded-md ${color}`} {...restProps}>
       { children }
     </div>
   );

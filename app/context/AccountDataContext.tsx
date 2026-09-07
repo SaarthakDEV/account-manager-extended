@@ -1,12 +1,13 @@
 "use client";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 import type { AccountOverview, AccountPayload } from "../types";
-import api, { METHODS } from "../utils/apiClient";
+import { fetchAccounts } from "@/redux/thunk/accounts";
+import useAppDispatch from "@/hooks/useAppDispatch";
 
 interface AccountDataContextValue {
-  accounts: AccountPayload[] & AccountOverview[];
-  searchText: string;
-  setSearchText: (val: string) => void;
+  accounts?: AccountPayload[] & AccountOverview[];
+  searchText?: string;
+  setSearchText?: (val: string) => void;
 }
 
 const AccountDataContext = createContext<AccountDataContextValue | undefined>(
@@ -18,24 +19,13 @@ export const AccountDataProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [searchText, setSearchText] = useState<string>("");
-  const [accounts, setAccounts] = useState<AccountPayload[] & AccountOverview[]>([]);
-
-  const value = useMemo(
-    () => ({ accounts, searchText, setSearchText }),
-    [accounts, searchText]
-  );
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    api(METHODS.GET, `accounts/${process.env.NEXT_PUBLIC_USER_ID}`).then(async response => {
-      const parsedResponse = await response.json();
-      if(parsedResponse.message !== "ok") throw new Error("Couldn't get account details of user")
-      setAccounts(parsedResponse.accounts.map((account: AccountOverview) => ({...account, account_name: account.name})));
-    })
-  }, [])
+    dispatch(fetchAccounts());
+  }, [dispatch])
 
   return (
-    <AccountDataContext.Provider value={value}>
+    <AccountDataContext.Provider value={{}}>
       {children}
     </AccountDataContext.Provider>
   );
