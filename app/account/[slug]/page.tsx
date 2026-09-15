@@ -1,4 +1,4 @@
-import AccountPage from "@/components/AccountTransactionList";
+import AccountPage from "@/features/transactions/components/AccountTransactionList";
 import type { Metadata } from "next";
 
 export const generateMetadata = async ({

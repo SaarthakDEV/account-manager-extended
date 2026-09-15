@@ -11,13 +11,16 @@ export type RequestType = (typeof METHODS)[keyof typeof METHODS];
 const api = async (
   METHOD: RequestType = METHODS.GET,
   endpoint: string,
-  payload?: BodyInit,
-  headers: HeadersInit | undefined = undefined,
+  payload?: object,
+  headers?: HeadersInit,
 ) =>
   await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/${endpoint}`, {
     method: METHOD,
-    headers,
-    body: JSON.stringify(payload),
+    headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+    body: payload ? JSON.stringify(payload) : undefined,
   });
 
 export default api;

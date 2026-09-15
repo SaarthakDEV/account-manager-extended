@@ -1,6 +1,6 @@
 const SLICE = {
-    ACCOUNTS: 'accounts'
-
+    ACCOUNTS: 'accounts',
+    USER: 'user',
 } as const;
 
 export type SliceType = typeof SLICE[keyof typeof SLICE];

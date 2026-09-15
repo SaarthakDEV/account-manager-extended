@@ -1,7 +1,7 @@
 import { ReactNode, useRef, useState } from "react";
-import Dialog from "../components/hoc/Dialog";
+import Dialog from "../components/Dialog";
 import { CTATypeKey } from "../types";
-import { CTAs } from "@/components/hoc/Dialog/Cta";
+import { CTAs } from "@/components/Dialog/Cta";
 
 export type DialogState = {
   message: string;

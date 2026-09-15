@@ -1,22 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import { Plus } from "../icons";
-import Dialog from "../components/hoc/Dialog";
+import Dialog from "../components/Dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
 import formSchema, { SchemaType } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CTAs } from "../components/hoc/Dialog/Cta";
-import { useAccountData } from "../context/AccountDataContext";
+import { CTAs } from "../components/Dialog/Cta";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import useAppDispatch from "@/hooks/useAppDispatch";
+import { addNewAccount, fetchAccounts } from "@/features/accounts/services";
+import { AccountOverview } from "@/types";
 
 const AddButton = () => {
+  const dispatch = useAppDispatch();
   const [openAddAccountDialog, setOpenAddNewAccountDialog] =
     useState<boolean>(false);
-  const { accounts } = useAccountData();
+    const { accounts } = useSelector((state: RootState) => state.accounts);
 
   const {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<SchemaType>({
     resolver: zodResolver(formSchema),
@@ -25,12 +31,12 @@ const AddButton = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<SchemaType> = ({ accountName }) => {
+  const onSubmit: SubmitHandler<SchemaType> = async ({ accountName }) => {
     const isAccountAlreadyExist = accounts.find(
-      (account) => account.name.toLowerCase() === accountName.toLowerCase(),
+      (account: AccountOverview) => account.name!.toLowerCase() === accountName.toLowerCase(),
     );
     if (isAccountAlreadyExist) {
-      setError(
+      return setError(
         "accountName",
         {
           type: "manual",
@@ -41,6 +47,9 @@ const AddButton = () => {
         },
       );
     }
+    await dispatch(addNewAccount({ accountName }));
+    setOpenAddNewAccountDialog(false);
+    reset();
   };
 
   return (

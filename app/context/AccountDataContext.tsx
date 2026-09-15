@@ -1,8 +1,9 @@
 "use client";
 import { createContext, useContext, useEffect } from "react";
 import type { AccountOverview, AccountPayload } from "../types";
-import { fetchAccounts } from "@/redux/thunk/accounts";
+import { fetchAccounts } from "@/features/accounts/services";
 import useAppDispatch from "@/hooks/useAppDispatch";
+import { fetchUser } from "@/features/user/services";
 
 interface AccountDataContextValue {
   accounts?: AccountPayload[] & AccountOverview[];
@@ -22,6 +23,7 @@ export const AccountDataProvider = ({
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchAccounts());
+    dispatch(fetchUser());
   }, [dispatch])
 
   return (

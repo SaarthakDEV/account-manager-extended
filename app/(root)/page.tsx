@@ -1,16 +1,15 @@
 "use client";
-import MobileSidebar from "../components/MobileSidebar";
-import SearchBar from "../components/SearchBar";
+import MobileSidebar from "@/features/layout/components/MobileSidebar";
+import SearchBar from "@/features/accounts/components/SearchBar";
 import { AccountDataProvider } from "../context/AccountDataContext";
 import "../globals.css";
 import AddButton from "./AddButton";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "@/features/layout/components/Sidebar";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
-import AccountOverviewList from "@/components/AccountOverviewList";
+import AccountOverviewList from "@/features/accounts/components/AccountOverviewList";
 
 export default function Home() {
-
   return (
     <Provider store={store}>
       <AccountDataProvider>

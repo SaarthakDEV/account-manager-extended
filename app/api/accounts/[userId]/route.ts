@@ -7,7 +7,7 @@ type Params = {
 };
 
 export const GET = async (
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: Promise<Params> },
 ) => {
   const { userId } = await params;
@@ -35,8 +35,22 @@ export const POST = async (
     name: accountName,
   };
   const addedAccount = await QUERIES.createAccountByUserId(newAccount);
-  return Response.json({
-    account: addedAccount,
-    message: "Account added successfully",
-  });
+  return Response.json(
+    {
+      status: true,
+      data: {
+        ...addedAccount,
+        record: {
+          [TRANSACTION.CREDIT]: addedAccount.credit,
+          [TRANSACTION.DEBIT]: addedAccount.debit,
+        },
+        [TRANSACTION.CREDIT]: 0,
+        [TRANSACTION.DEBIT]: 0,
+      },
+      message: "Account added successfully",
+    },
+    {
+      status: 201,
+    },
+  );
 };

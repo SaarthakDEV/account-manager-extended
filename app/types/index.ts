@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactNode } from "react";
-import { CTAs } from "../components/hoc/Dialog/Cta";
+import { CTAs } from "../components/Dialog/Cta";
 import { Moment } from "moment";
 import { ColumnDef, RowData, TableFeatures } from "@tanstack/react-table";
 
@@ -66,3 +66,7 @@ export interface TableConfig<TData extends RowData> {
   bodyConfig: ColumnDef<TableFeatures, TData>[];
   options?: Record<TableOptionsType, string | boolean>
 }
+
+export type LedgerTransactionType =
+  | typeof TRANSACTION.CREDIT
+  | typeof TRANSACTION.DEBIT;
